@@ -1,0 +1,15 @@
+/DB
+/venv
+/.idea
+/__pycache__/
+/models
+.env
+/SOURCE_DOCUMENTS
+embedded_files_cache.pkl
+*.pkl
+./tests/.env
+pytest.ini
+!/tests/resources/sample_passages.pkl
+/RAGchain.egg-info
+/dist
+/build
