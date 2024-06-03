@@ -37,6 +37,7 @@ class InfiniAttention(nn.Module):
         norm_term: Optional[mx.array] = None,
         no_memory_update: bool = False,
     ) -> mx.array:
+    
         B, L, D = x.shape
         assert L == self.segment_size, f"Sequence length must be {self.segment_size}"
 
