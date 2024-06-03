@@ -59,16 +59,14 @@ for j in range(Tc):
         # step 13
         mi_new = torch.maximum(m_block_ij, mi)
 
-        li_new = torch.exp(mi - mi_new) * li + \
-                 torch.exp(m_block_ij - mi_new) * l_block_ij
+        li_new = torch.exp(mi - mi_new) * li + torch.exp(m_block_ij - mi_new) * l_block_ij
 
         # step 14
         m = torch.nn.Dropout(p=P_DROP)
         P_ij_Vj = m(P_ij_Vj)
 
         # Step 15
-        O_BLOCKS[i] = (li / li_new) * torch.exp(mi - mi_new) * Oi \
-                      + (torch.exp(m_block_ij - mi_new) / li_new) * P_ij_Vj
+        O_BLOCKS[i] = (li / li_new) * torch.exp(mi - mi_new) * Oi + (torch.exp(m_block_ij - mi_new) / li_new) * P_ij_Vj
         print(f'-----------Attention : Q{i}xK{j}---------')
         print(O_BLOCKS[i].shape)
         print(O_BLOCKS[0])

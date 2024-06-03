@@ -71,7 +71,6 @@ def get_advantages_and_returns(self, values, rewards, start):
 
 
 #更新Actor模型
-
 batch = {'input_ids': seq, "attention_mask": attention_mask}
 actor_prob = self.actor_model(**batch, use_cache=False).logits
 actor_log_prob = gather_log_probs(actor_prob[:, :-1, :], seq[:, 1:])
@@ -91,8 +90,6 @@ def actor_loss_fn(self, logprobs, old_logprobs, advantages, mask):
 
 
 # 更新critic模型
-
-
 value = self.critic_model.forward_value(**batch, return_value_only=True, use_cache=False)[:, :-1]
 critic_loss = self.critic_loss_fn(value[:, start:], old_values[:,start:], returns, action_mask[:, start:])
 self.critic_model.backward(critic_loss)
