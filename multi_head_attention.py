@@ -1,5 +1,9 @@
 import torch
 from torch import nn
+'''
+同SelfAttention, SelfAttention重在是同一hidden states在不同线性子空间的相互注意力
+multi head attention中的QKV有可能来自于不同的hidden states
+'''
 
 class MutiHeadAttention(torch.nn.Module):
     def __init__(self, hidden_size, num_heads):
