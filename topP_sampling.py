@@ -7,7 +7,8 @@ Nucleus Sampling（核采样），也被称为Top-p Sampling旨在在保持生�
 参数p是Nucleus Sampling中的重要参数，它决定了所选词语的概率总和。p的值会被设置在(0,1]之间，表示词语总概率的一个下界。
 Nucleus Sampling 能够保持一定的生成质量，因为它在一定程度上考虑了概率分布。通过选择概率总和超过给定阈值p的词语子集进行随机采样，Nucleus Sampling 能够增加生成文本的多样性。
 '''
-
+import torch
+import torch.nn.functional as F
 def top_p_sampling(input_ids, max_tokens=100, top_p=0.95):
  with torch.inference_mode():
     for _ in range(max_tokens):
@@ -21,7 +22,7 @@ def top_p_sampling(input_ids, max_tokens=100, top_p=0.95):
         indices_to_remove = sorted_indices[sorted_indices_to_remove]
         next_token_logits.scatter_(-1, indices_to_remove[None, :], float('-inf'))
         probs = F.softmax(next_token_logits, dim=-1)
-        next_token = torch.multinomial(probs, num_samples=1)
+        next_token = torch.multinomial(probs, num_samples=1) # 多分布采样
         input_ids = torch.cat([input_ids, next_token], dim=-1)
  generated_text = tokenizer.decode(input_ids[0])
  return generated_text
