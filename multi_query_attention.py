@@ -18,7 +18,7 @@ class MutiQueryAttention(torch.nn.Module):
         
         ## 初始化Q、K、V投影矩阵
         self.q_linear = nn.Linear(hidden_size, hidden_size)
-        self.k_linear = nn.Linear(hidden_size, self.head_dim) ###此时k和v只有一组
+        self.k_linear = nn.Linear(hidden_size, self.head_dim) ### 此时k和v只有一组
         self.v_linear = nn.Linear(hidden_size, self.head_dim) ###
         
         ## 输出线性层

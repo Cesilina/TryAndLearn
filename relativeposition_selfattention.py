@@ -1,6 +1,10 @@
 import torch
 import torch.nn as nn
 
+'''
+可学习的相对位置编码
+'''
+
 class RelativePositionSelfAttention(nn.Module):
     def __init__(self, d_model, nhead, seq_len):
         super(RelativePositionSelfAttention, self).__init__()
