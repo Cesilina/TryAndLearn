@@ -54,7 +54,16 @@ class TopKGating(nn.Module):
         # 计算每个专家的分数
         gating_scores = self.gate(x)
         # 选取分数最高的 top_k 个专家，并返回它们的索引和 softmax 权重
-        top_k_values, top_k_indices = torch.topk(F.softmax(gating_scores, dim=1), self.top_k)
+
+        # TODO 由于训练过程中，gating_score趋向于均匀分布，相当于求experts的平均值，此处可改进，
+        u = gating_scores.mean(-1, keepdim=True)
+        sigma = gating_scores.std(-1, keepdim=True)
+        lamba = 1.5
+        gating_scores_new = lamba * (gating_scores - u) / sigma
+
+        top_k_values, top_k_indices = torch.topk(F.softmax(gating_scores_new, dim=1), self.top_k)
+
+
         return top_k_indices, top_k_values
 
 class Expert(nn.Module):

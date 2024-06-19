@@ -2,6 +2,11 @@ import argparse
 from transformers import AutoModelForCausalLM
 import torch
 
+'''
+快扩展实现增量预训练
+只使用新的语料库来训练扩展块，有效地提高模型知识的同时不会发生灾难性的遗忘。
+'''
+
 def main():
     # Set up the argument parser
     parser = argparse.ArgumentParser(description="Receive deepen model's args")
