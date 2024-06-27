@@ -1,4 +1,5 @@
 from torch import nn
+import torch
 
 class LayerNorm(nn.Module):
     def __init__(self, features, eps=1e-6):

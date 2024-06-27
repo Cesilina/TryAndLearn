@@ -1,8 +1,12 @@
+from typing import Optional
+import torch
 import torch.nn as nn
+
+from gemmaRotaryEmbedding import apply_rotary_pos_emb
 
 
 class DeepseekV2Attention(nn.Module):
-    def __init__(self, config: DeepseekV2Config, layer_idx: Optional[int] = None):
+    def __init__(self, config, layer_idx):
         ...
         # 表示向量中应用rope部分的维度
         self.qk_rope_head_dim = config.qk_rope_head_dim

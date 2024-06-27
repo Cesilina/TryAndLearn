@@ -4,8 +4,9 @@ cross attention和之前的attention不一样的是:
 2.Q,K,V的来源不同,x,y是两个模型的隐藏层,将x作为Q的输入,y作为k和v的输入
 3.在stable diffusion中,x表示为images, y为context,来自于prompts、uncond prompts与condition
 '''
+import math
 import torch.nn as nn
-import torch.nn.functional as f
+import torch.nn.functional as F
 
 # 参考链接 stable diffusion的源代码:https://github.com/kjsman/stable-diffusion-pytorch/blob/main/stable_diffusion_pytorch/attention.py
 class CrossAttention(nn.Module):
